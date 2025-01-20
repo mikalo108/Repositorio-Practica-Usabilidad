@@ -110,8 +110,8 @@
                           <div class="accordion-body">
                             <form id="newsletter">
                                 <label for="email">Escriba su correo para recibir ejercicios de práctica:</label>
-                                <input type="email" name="email" id="email" required>
-                                <input type="button" value="Enviar" name="enviar" id="email" onclick="validateEmail()">
+                                <input type="email" name="email" id="email" required oninput="validateEmail()">
+                                <input type="button" value="Suscribirse" name="suscribir" id="suscribirse" onclick="validateEmail()">
                                 <p id="mensaje"></p>
                             </form>
                           </div>
@@ -211,13 +211,15 @@
         let emailCampo = document.getElementById("email");
 
         function validateEmail(){
-            let email = emailCampo.value;
-            if(emailValido.test(email) ){
-                form.innerHTML="<p>Se le enviará un correo cada 24 horas a \""+email+"\".</p>";    
-            } else if(emailValido.test(email)==false){
+        const emailValido = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+        const email = document.getElementById("email").value;
+        const mensaje = document.getElementById("mensaje");
 
-                mensaje.innerHTML="<p style='color:red;'>Error: Email no válido.</p>"
-            }
-        };
+        if(emailValido.test(email)){
+            mensaje.innerHTML = "<p style='color:green;'>Correo válido. Puede suscribirse.</p>";
+        } else {
+            mensaje.innerHTML = "<p style='color:red;'>Por favor, introduzca un correo válido.</p>";
+        }
+    }
 </script>
 </html>
